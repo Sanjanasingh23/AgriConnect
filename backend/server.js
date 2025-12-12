@@ -4,7 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const passport = require('passport');
 
-// Load environment variables
+// Load environment variables from .env file into process.env.
 dotenv.config();
 
 const http = require('http');
@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Middleware
-app.use(cors());
+app.use(cors());  // cors() → allow your React/Frontend to call this API
 app.use(express.json());
 app.use(passport.initialize());
 
@@ -46,6 +46,10 @@ app.use('/api/chats', chatRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payment', paymentRoutes);
+
+// Serve static files
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', (req, res) => {
   res.send('AgriConnect Pro API is running...');
