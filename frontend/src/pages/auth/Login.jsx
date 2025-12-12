@@ -27,7 +27,8 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         // Redirect to backend Google Auth with Role
-        window.location.href = `http://localhost:5000/api/auth/google?role=${role}`;
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        window.location.href = `${apiUrl}/api/auth/google?role=${role}`;
     };
 
     if (!role) {
